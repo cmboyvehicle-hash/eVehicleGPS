@@ -14,7 +14,7 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - uses: android-actions/setup-android@v3
+      # เครื่อง ubuntu ของ GitHub มี Android SDK ติดตั้งไว้แล้ว (ANDROID_HOME)
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.7'
