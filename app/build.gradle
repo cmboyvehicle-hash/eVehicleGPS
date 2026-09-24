@@ -1,0 +1,48 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'th.ev.gps'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'th.ev.gps'
+        minSdk 26
+        targetSdk 34
+        versionCode 1
+        versionName '1.0'
+        // ลิงก์เว็บแอป Apps Script (…/exec)
+        buildConfigField 'String', 'WEB_URL', '"https://script.google.com/macros/s/AKfycbxKcObCaWrZgI0v95zVFxQjfv46YSlGyX78516jSQSCWEwUxRhE9HuKf6SgTPQ7KhMG/exec"'
+        // ส่งตำแหน่งทุกกี่วินาที
+        buildConfigField 'int', 'SEND_INTERVAL_SEC', '60'
+        // ถ้ากดเริ่มแล้วยังไม่มีทริปเปิดในระบบนานกี่นาที ให้หยุดเอง
+        buildConfigField 'int', 'WAIT_TRIP_MAX_MIN', '60'
+    }
+
+    // ถ้ามีไฟล์กุญแจ app/evgps.keystore → เซ็นด้วยกุญแจชุดนี้ทุกครั้ง (ติดตั้งทับเวอร์ชันเก่าได้)
+    // ถ้าไม่มี → ใช้กุญแจ debug ของเครื่องที่ build (ติดตั้งทับข้ามเครื่อง build ไม่ได้ ต้องถอนแอปเดิมก่อน)
+    def ks = file('evgps.keystore')
+    signingConfigs {
+        shared {
+            if (ks.exists()) {
+                storeFile ks
+                storePassword 'evgps1234'
+                keyAlias 'evgps'
+                keyPassword 'evgps1234'
+            }
+        }
+    }
+    buildTypes {
+        debug   { if (ks.exists()) signingConfig signingConfigs.shared }
+        release {
+            signingConfig ks.exists() ? signingConfigs.shared : signingConfigs.debug
+            minifyEnabled false
+        }
+    }
+    buildFeatures { buildConfig true }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
