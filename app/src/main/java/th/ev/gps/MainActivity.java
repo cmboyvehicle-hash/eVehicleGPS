@@ -63,20 +63,6 @@ public class MainActivity extends Activity {
         setContentView(buildUi());
         loadCars();
         askBatteryOnce();
-        askBluetoothOnce();
-        BtLinkService.start(this);
-    }
-
-    /* ขอสิทธิ์ Bluetooth ครั้งแรก (Android 12 ขึ้นไป) */
-    private void askBluetoothOnce() {
-        if (android.os.Build.VERSION.SDK_INT < 31) return;
-        try {
-            if (checkSelfPermission(android.Manifest.permission.BLUETOOTH_CONNECT)
-                    != android.content.pm.PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{
-                        android.Manifest.permission.BLUETOOTH_CONNECT }, 991);
-            }
-        } catch (Exception ignored) { }
     }
 
     @Override
