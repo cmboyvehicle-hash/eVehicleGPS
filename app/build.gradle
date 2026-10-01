@@ -10,8 +10,8 @@ android {
         applicationId 'th.ev.gps'
         minSdk 26
         targetSdk 34
-        versionCode 1
-        versionName '1.0'
+        versionCode 2
+        versionName '1.1'
         // ลิงก์เว็บแอป Apps Script (…/exec)
         buildConfigField 'String', 'WEB_URL', '"https://script.google.com/macros/s/AKfycbxKcObCaWrZgI0v95zVFxQjfv46YSlGyX78516jSQSCWEwUxRhE9HuKf6SgTPQ7KhMG/exec"'
         // ส่งตำแหน่งทุกกี่วินาที
