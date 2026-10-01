@@ -11,13 +11,6 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
-    <!-- เชื่อม Bluetooth กับเครื่องประจำรถ (ESP32) -->
-    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
-    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-
     <uses-feature android:name="android.hardware.location.gps" android:required="false" />
 
     <application
@@ -56,23 +49,5 @@
             android:name=".LocationService"
             android:exported="false"
             android:foregroundServiceType="location" />
-
-        <!-- ตัวเชื่อม Bluetooth กับเครื่องประจำรถ -->
-        <service
-            android:name=".BtLinkService"
-            android:exported="false"
-            android:foregroundServiceType="connectedDevice" />
-
-        <receiver
-            android:name=".BootReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-            </intent-filter>
-        </receiver>
     </application>
 </manifest>
